@@ -8,8 +8,8 @@ const solvers = [
 const solver = solvers[process.argv[2] - 1];
 const timer = require('./utilities/timer.js').timer;
 
-const msTaken = timer(solver);
 const solution = solver();
-
 console.log(`Solution found was ${solution}`);
+
+const msTaken = timer(solver);
 console.log(`Average time taken was ${msTaken}ms`);
