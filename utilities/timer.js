@@ -1,5 +1,5 @@
 function timer(solutionFunction) {
-  const iterations = 5000;
+  const iterations = 1000;
   let totalMs = 0;
 
   for (let i = 0; i < iterations; i++) {
