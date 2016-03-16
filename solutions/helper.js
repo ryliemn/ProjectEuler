@@ -28,15 +28,35 @@ function getPrimeNumbers(n) {
 }
 
 function isPrime() {
-  const primes = getPrimeNumbers(1000000);
+  const primes = getPrimeNumbers(10000);
   const isPrimeClosure = function(x) {
     return primes.includes(x);
   }
   return isPrimeClosure;
 }
 
+function getPrimeFactors() {
+  const primes = getPrimeNumbers(10000);
+  const getPrimeFactorsClosure = function(x) {
+    let primeFactors = [];
+
+    for (let i = 0; i < primes.length; i++) {
+      let currentPrime = primes[i];
+      while (x % currentPrime === 0) {
+        x = x / currentPrime;
+        primeFactors.push(currentPrime);
+      }
+      if (x === 1) break;
+    }
+
+    return primeFactors;
+  }
+  return getPrimeFactorsClosure;
+}
+
 
 exports.helper = {
   getPrimeNumbers: getPrimeNumbers,
-  isPrime: isPrime()
+  isPrime: isPrime(),
+  getPrimeFactors: getPrimeFactors()
 };

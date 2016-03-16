@@ -1,25 +1,36 @@
+const helper = require('./helper.js').helper;
+
 function calculate() {
-  let smallestFound = false;
-  let currentNumber = 0;
-  let currentDivisor = 1;
-
-  let smallestMultiple = 0;
-
-  while (!smallestFound) {
-    currentNumber += 58140;
-    let isDivisible = true;
-    let currentDivisor = 0;
-    while (isDivisible && currentDivisor <= 20) {
-      currentDivisor++;
-      isDivisible = currentNumber % currentDivisor === 0;
-    }
-    smallestFound = isDivisible;
-    if (smallestFound) {
-      smallestMultiple = currentNumber;
-    }
+  let primeFactors = {};
+  for (let i = 2; i <= 20; i++) {
+    primeFactors[i] = helper.getPrimeFactors(i);
   }
 
-  return smallestMultiple;
+  let commonFactors = [];
+  for (let factors in primeFactors) {
+    let commonFactorCopy = commonFactors.slice();
+    factors = primeFactors[factors];
+
+    for (let i = 0; i < factors.length; i++) {
+      let factor = factors[i];
+      if (commonFactorCopy.includes(factor)) {
+        factors.splice(i, 1);
+        i--;
+        let indexInCopy = commonFactorCopy.indexOf(factor);
+        commonFactorCopy.splice(indexInCopy, 1);
+      }
+    }
+
+    commonFactors = commonFactors.concat(factors);
+  }
+
+  let product = 1;
+  for (let factor in commonFactors) {
+    factor = commonFactors[factor];
+    product *= factor;
+  }
+
+  return product;
 }
 
 exports.calculate = calculate;
